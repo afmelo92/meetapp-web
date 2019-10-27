@@ -4,11 +4,20 @@ export function meetupRequest(
   title,
   description,
   date,
-  location
+  location,
+  meetup_id
 ) {
   return {
     type: '@events/MEETUP_REQUEST',
-    payload: { host_id, banner_id, title, description, date, location },
+    payload: {
+      host_id,
+      banner_id,
+      title,
+      description,
+      date,
+      location,
+      meetup_id,
+    },
   };
 }
 

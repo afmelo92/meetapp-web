@@ -6,20 +6,37 @@ import api from '~/services/api';
 
 export function* editEvent({ payload }) {
   try {
-    const { host_id, banner_id, date, title, description, location } = payload;
-
-    const response = yield call(api.post, 'events', {
+    const {
       host_id,
       banner_id,
       date,
       title,
       description,
       location,
-    });
+      meetup_id,
+    } = payload;
 
-    console.tron.log(response);
-
-    toast.success('Meetup criado com sucesso!');
+    if (!meetup_id) {
+      yield call(api.post, 'events', {
+        host_id,
+        banner_id,
+        date,
+        title,
+        description,
+        location,
+      });
+      toast.success('Meetup criado com sucesso!');
+    } else {
+      yield call(api.put, `events/${meetup_id}`, {
+        host_id,
+        banner_id,
+        date,
+        title,
+        description,
+        location,
+      });
+      toast.success('Meetup Atualizado com sucesso!');
+    }
 
     history.push('/dashboard');
   } catch (err) {

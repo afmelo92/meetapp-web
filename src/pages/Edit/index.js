@@ -40,6 +40,8 @@ export default function Edit({ match }) {
     date: meetDate,
   };
 
+  console.tron.log(initialData.description);
+
   useEffect(() => {
     async function loadMeetup() {
       const response = await api.get(`schedule/${id}`);
@@ -70,7 +72,7 @@ export default function Edit({ match }) {
   function handleSubmit({ banner_id, title, description, date, location }) {
     const host_id = 10;
     dispatch(
-      meetupRequest(host_id, banner_id, title, description, date, location)
+      meetupRequest(host_id, banner_id, title, description, date, location, id)
     );
   }
 
