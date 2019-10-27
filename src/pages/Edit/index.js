@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import PropTypes from 'prop-types';
 import { format, parseISO } from 'date-fns';
@@ -27,6 +27,7 @@ const schema = Yup.object().shape({
 
 export default function Edit({ match }) {
   const dispatch = useDispatch();
+  const host_id = useSelector(state => state.user.profile.id);
   const { id } = match.params;
   const [event, setEvent] = useState([]);
   const [banner, setBanner] = useState('');
@@ -40,7 +41,7 @@ export default function Edit({ match }) {
     date: meetDate,
   };
 
-  console.tron.log(initialData.description);
+  console.tron.log(`HOST_ID: ${host_id}`);
 
   useEffect(() => {
     async function loadMeetup() {
@@ -70,7 +71,6 @@ export default function Edit({ match }) {
   console.tron.log(typeof event.description);
 
   function handleSubmit({ banner_id, title, description, date, location }) {
-    const host_id = 10;
     dispatch(
       meetupRequest(host_id, banner_id, title, description, date, location, id)
     );
